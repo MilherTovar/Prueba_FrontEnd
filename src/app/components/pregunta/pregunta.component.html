@@ -16,30 +16,13 @@
 </div>
 <br>
 
-<!--
-<div>
-    <table>
-        <tr *ngFor="let respuesta of respuestas;let indice=index" (click)="ubicar_respuesta()">
-            <td> {{indice+1}}
-            <td>{{respuesta.respue}}</td>
-            <td>{{respuesta.valor}}</td>
-        </tr>
-    </table>
-</div>
--->
-<!--
-<div *ngFor="let respuesta of respuestas;let indice=index" (click)="ubicar_respuesta()" >
-    {{indice+1}} - {{respuesta.respue}}
-    <br>
-    {{des_respuesta}}
-</div>
--->
-
 <ion-col *ngFor="let respuesta of respuestas; let i = index">
-    <ion-button (click)="ubicar_respuesta(i)">
+    <ion-button (click)="ubicar_respuesta(respuesta.id)">
         {{i+1}} - {{respuesta.respue}}
         <br>
-        {{des_respuesta}}
+        <span *ngIf="respuesta.id==currentrespue">
+            {{des_respuesta}}
+        </span>
         <br>
     </ion-button>               
 </ion-col>
@@ -47,4 +30,9 @@
 <br>
 <div>
     <button (click)="incrementar()">Siguiente</button>
+</div>
+<br>
+<br>
+<div>
+    <button>Terminar</button>
 </div>

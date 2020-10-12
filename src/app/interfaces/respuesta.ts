@@ -1,5 +1,5 @@
 export interface Respuesta {
-    Id:number;
+    id:number;
     respue:string;
     id_contexto:number;
     valor:boolean;

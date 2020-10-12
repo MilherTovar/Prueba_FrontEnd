@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ContextoService } from '../../service/contexto.service';
 import { RespuestaService } from '../../service/respuesta.service';
+import { UsuarioService } from '../../service/usuario.service'
+import { ResultadoService } from '../../service/resultado.service';
+
 import { Respuesta } from '../../interfaces/respuesta';
+//import { Resultado } from '../../interfaces/resultado';
 
 @Component({
   selector: 'app-pregunta',
@@ -14,12 +18,16 @@ export class PreguntaComponent implements OnInit {
   pregunta = '';
   paso: number = null;
   respuestas: Respuesta[] = null;
-  des_respuesta: Respuesta[];
   items: number[] = [1, 2, 3, 4, 5];
+  des_respuesta: string;
+  currentrespue: number = 9;
+  respuestaElegida: any={};
 
   constructor(
     private contextService: ContextoService,
-    private respuestaService: RespuestaService
+    private respuestaService: RespuestaService,
+    private usuarioService:UsuarioService,
+    private resultadoService:ResultadoService
   ) { }
 
   ngOnInit() {
@@ -53,14 +61,32 @@ export class PreguntaComponent implements OnInit {
   }
 
   ubicar_respuesta(id: number) {
+    this.currentrespue = id;
     this.respuestaService.getAllRespuestas()
       .subscribe(respuestas => {
-        this.des_respuesta = respuestas;
-        //this.respuestas=respuestas;
-        //console.log(this.respuestas);
-        console.log(this.des_respuesta);
+        const varia = respuestas.find(respuesta => respuesta.id == id);
+        this.des_respuesta = varia.valor ? "Correcto" : "Incorrecto";
+
+        this.des_respuesta
       });
-    console.log("Entro " + id);
+    
+      this.usuarioService.getpersona('1')
+      .subscribe(persona=>{
+        this.respuestaElegida.persona=persona.nombre+' '+persona.apellido;
+      });
+
+      this.contextService.getContext(this.paso + 3)
+        .subscribe(contexto => {
+          this.respuestaElegida.pregunta=contexto.pregunta;
+        });
+      
+        this.respuestaElegida.valor=this.des_respuesta=="Correcto"?20:10;
+      
+        this.resultadoService.insertarRespuesta(this.respuestaElegida)
+        .subscribe();
+
+        console.log(this.respuestaElegida);
+
   }
 
   ubicar_contexto(id: number) {
@@ -75,7 +101,7 @@ export class PreguntaComponent implements OnInit {
         this.respuestas = respuestas.filter(respuesta => respuesta.id_contexto == id + 3);
       });
     this.des_respuesta = null;
-    this.paso=id;
+    this.paso = id;
   }
 
 }
