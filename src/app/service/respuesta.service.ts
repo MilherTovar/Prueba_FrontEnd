@@ -24,5 +24,6 @@ export class RespuestaService {
     const path=`${this.api}/resp/res/?id=${id}`;
     return this.http.get<Respuesta>(path);
   }
+  
 
 }

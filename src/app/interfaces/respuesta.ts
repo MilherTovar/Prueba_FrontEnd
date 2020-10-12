@@ -4,3 +4,4 @@ export interface Respuesta {
     id_contexto:number;
     valor:boolean;
 }
+

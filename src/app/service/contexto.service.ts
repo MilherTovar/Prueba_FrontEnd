@@ -25,4 +25,5 @@ export class ContextoService {
     return this.http.get<Contexto>(path);
   }
 
+  
 }

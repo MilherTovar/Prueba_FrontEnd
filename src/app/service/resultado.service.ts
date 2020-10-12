@@ -20,4 +20,5 @@ export class ResultadoService {
       return this.http.post<any>(path,any);
   }
 
+  
 }

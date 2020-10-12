@@ -5,3 +5,4 @@ export interface Persona {
     correo:string;
     telefono:string;
 }
+

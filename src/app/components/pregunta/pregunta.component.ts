@@ -5,7 +5,6 @@ import { UsuarioService } from '../../service/usuario.service'
 import { ResultadoService } from '../../service/resultado.service';
 
 import { Respuesta } from '../../interfaces/respuesta';
-//import { Resultado } from '../../interfaces/resultado';
 
 @Component({
   selector: 'app-pregunta',
@@ -87,6 +86,7 @@ export class PreguntaComponent implements OnInit {
 
         console.log(this.respuestaElegida);
 
+        
   }
 
   ubicar_contexto(id: number) {

@@ -9,7 +9,6 @@ import { LibroService } from '../service/libro.service';
 export class DashboardComponent {
 
   nombre_libro="Prueba";
-
   
     constructor(
       private libroService: LibroService
